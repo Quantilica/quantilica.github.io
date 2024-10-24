@@ -12,7 +12,6 @@ buildExpired: false
 enableEmoji: true
 pygmentsUseClasses: true
 mainsections: ["posts"]
-googleAnalytics: UA-123-45
 
 minify:
   disableXML: true
@@ -24,7 +23,7 @@ outputs:
     - RSS
     - JSON
 
-params:
+Params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   description: "Quantilica"
   author: Quantilica
@@ -45,7 +44,7 @@ params:
   homeInfoParams:
     Title: "Quantilica"
     Content: >
-      Data
+      Hello World!
 
   socialIcons:
     - name: github
@@ -61,9 +60,3 @@ markup:
       unsafe: true
   highlight:
     noClasses: false
-
-services:
-  instagram:
-    disableInlineCSS: true
-  twitter:
-    disableInlineCSS: true
