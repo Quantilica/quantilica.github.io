@@ -1,0 +1,69 @@
+baseURL: https://quantilica/
+languageCode: en-us
+title: Quantilica
+
+theme: ["PaperMod"]
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+mainsections: ["posts"]
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  description: "Quantilica"
+  author: Quantilica
+
+  defaultTheme: light
+  disableThemeToggle: true
+  ShowShareButtons: true
+  ShowReadingTime: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+
+  homeInfoParams:
+    Title: "Quantilica"
+    Content: >
+      Data
+
+  socialIcons:
+    - name: github
+      title: View Source on Github
+      url: "https://github.com/Quantilica"
+    - name: X
+      title: X/Twitter
+      url: "https://x.com/quantilica"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true
