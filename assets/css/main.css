@@ -1,0 +1,36 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
+}
+
+header {
+  min-height: 50px;
+  background: whitesmoke;
+}
+
+footer {
+  min-height: 50px;
+  background: whitesmoke;
+}
+
+
+/* The article fills all the space between header & footer */
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  /* Center vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+    max-width: 400px;
+  }
+}
