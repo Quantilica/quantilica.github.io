@@ -1,7 +1,42 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-image">
+      <img src="/Gemini_Generated_Image_kcpi11kcpi11kcpi.jpg" alt="AI and Data Science Projects" />
+    </div>
+    <div class="hero-text">
+      <h1>※ Quantilica</h1>
+      <p class="hero-description">Projects and experiments in Data Science</p>
+    </div>
+  </div>
+</section>
+
+<section class="projects">
+  <div class="projects-container">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <a href="https://fish.dkko.me" class="project-card" target="_blank" rel="noopener">
+        <div class="project-icon">🐠</div>
+        <div class="project-content">
+          <h3>fish</h3>
+          <p>a metadata explorer for IBGE's SIDRA</p>
+        </div>
+      </a>
+      <a href="https://alpaca.dkko.me" class="project-card" target="_blank" rel="noopener">
+        <div class="project-icon">🦙</div>
+        <div class="project-content">
+          <h3>alpaca</h3>
+          <p>a metadata explorer for DATASUS' microdata files in the FTP server</p>
+        </div>
+      </a>
+      <a href="https://hedgehog.dkko.me" class="project-card" target="_blank" rel="noopener">
+        <div class="project-icon">🦔</div>
+        <div class="project-content">
+          <h3>hedgehog</h3>
+          <p>a metadata explorer for Brazil's Central Bank's SGS</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 {{ end }}
