@@ -25,6 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Fetch latest releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/fetch_releases.py _pages/assets/releases.json
+
       - name: Stage site files
         run: |
           mkdir -p _pages/assets

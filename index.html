@@ -37,25 +37,24 @@
   <style>
     :root {
       /* Paleta oficial — branding/colors/palette.md */
---primary: #ED8936;            /* Cobre mais brilhante */
-  --primary-dark: #B46225;     /* sombra do cobre p/ hover */
-  --ocean: #10B3F2;            /* Cyan Iluminado mais vibrante */
-  --cyan: #14B8A6;               /* Ciano vibrante */
-  --sand: #F8DA98;               /* Bege Areia mais claro */
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --surface-alt: #F3F2F1;    /* tint de Bege Areia p/ cards/código em Light Mode */
-  --text: #1e293b;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --green: #10b981;
-  --shadow-sm: 0 1px 2px 0 rgba(11, 16, 30, .05);
-  --shadow-md: 0 4px 6px -1px rgba(11, 16, 30, .1);
-  --radius: 12px;
-  --font-ui: "Inter", Roboto, sans-serif;
-  --font-display: "Inter Tight", Inter, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
-EOF
+      --primary: #ED8936;            /* Cobre mais brilhante */
+      --primary-dark: #B46225;       /* sombra do cobre p/ hover */
+      --ocean: #10B3F2;              /* Cyan Iluminado mais vibrante */
+      --cyan: #14B8A6;               /* Ciano vibrante */
+      --sand: #F8DA98;               /* Bege Areia mais claro */
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-alt: #F3F2F1;        /* tint de Bege Areia p/ cards/código em Light Mode */
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #10b981;
+      --shadow-sm: 0 1px 2px 0 rgba(11, 16, 30, .05);
+      --shadow-md: 0 4px 6px -1px rgba(11, 16, 30, .1);
+      --radius: 12px;
+      --font-ui: "Inter", Roboto, sans-serif;
+      --font-display: "Inter Tight", Inter, sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -65,38 +64,49 @@ EOF
       font: 16px/1.65 var(--font-ui);
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { color: var(--primary-dark); text-decoration: underline; }
+
+    a { color: var(--primary-dark); text-decoration: none; }
+    a:hover { color: var(--primary); text-decoration: underline; }
     .wrap { max-width: 1024px; margin: 0 auto; padding: 0 24px; }
+
     .grad-text {
-      background: linear-gradient(135deg, var(--primary) 0%, #EC4899 50%, var(--ocean) 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--ocean) 100%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 12px rgba(var(--primary), .8);
     }
-    text-shadow: 0 0 12px var(--primary), 0 0 24px var(--primary);
 
     header {
       position: sticky; top: 0; z-index: 10;
       background: rgba(255, 255, 255, .9);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       animation: slideDown .5s ease-out;
     }
-    nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { display: flex; align-items: center; gap: 10px; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; font: 800 1.15rem/1 var(--font-display); letter-spacing: -.01em; }
     .brand img { width: 36px; height: 36px; }
-    .brand b { font: 800 1.15rem/1 var(--font-display); letter-spacing: .01em; }
     nav ul { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; align-items: center; }
     nav ul a { color: var(--muted); font-size: .93rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
     nav ul a:hover { color: var(--primary); text-decoration: none; }
     nav ul a svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
-    .hero-grid {
-      display: flex; align-items: center; justify-content: center;
-      gap: 48px; flex-wrap: wrap;
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      padding: 76px 0 96px;
+      overflow: hidden;
     }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(var(--border) 1.1px, transparent 1.1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 94%);
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 94%);
+      pointer-events: none;
+    }
+    .hero > .wrap { position: relative; z-index: 1; }
+    .hero-grid { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
     .hero-img { flex: 0 1 340px; text-align: center; }
     .hero-img img {
       width: 100%; max-width: 340px; height: auto;
@@ -104,9 +114,36 @@ EOF
     }
     .hero-text { flex: 1 1 420px; max-width: 560px; }
     .hero-text h1 { font: 800 clamp(2rem, 5vw, 2.9rem)/1.2 var(--font-display); letter-spacing: -.01em; }
-    text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
-    .hero-text .tagline { margin-top: 16px; color: var(--muted); font-size: 1.1rem; }
-    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+    .hero-sub {
+      margin-top: 12px; max-width: 34rem;
+      font-style: italic; color: var(--muted); font-size: 1.04rem;
+    }
+    .hero-text .tagline { margin-top: 14px; color: var(--muted); font-size: 1rem; }
+    .rotate-word { color: var(--primary-dark); font-weight: 600; transition: opacity .28s ease; }
+    .rotate-word.rot-out { opacity: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 26px; padding: 11px 26px;
+      background: var(--primary); color: #fff;
+      font-weight: 600; font-size: .95rem;
+      border-radius: 999px; text-decoration: none;
+      transition: background .2s ease;
+    }
+    .btn-primary:hover { background: var(--primary-dark); color: #fff; text-decoration: none; }
+    .hero-meta { margin-top: 20px; color: var(--muted); font-size: .85rem; }
+    .hero-meta span { color: var(--border); }
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+      color: var(--muted); animation: bob 2.2s ease-in-out infinite; z-index: 1;
+    }
+    .scroll-cue:hover { color: var(--primary); }
+    .scroll-cue svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; }
+    @keyframes bob {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, 6px); }
+    }
+
     section { padding: 52px 0; border-bottom: 1px solid var(--border); animation: fadeIn .8s ease-out; }
     section:last-of-type { border-bottom: none; }
     h2 { font: 700 1.45rem/1.3 var(--font-display); margin-bottom: 6px; letter-spacing: -.01em; }
@@ -125,6 +162,83 @@ EOF
     pre.code .cmd { color: var(--primary-dark); font-weight: 600; }
     pre.code .arg { color: var(--green); }
 
+    /* ---------- Terminal mockup ---------- */
+    .term-strip { padding: 0 0 60px; border-bottom: 1px solid var(--border); }
+    .term {
+      max-width: 760px; margin: 0 auto;
+      background: #0B101E; border-radius: var(--radius);
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .term-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: rgba(255,255,255,.06); }
+    .term-bar i { width: 11px; height: 11px; border-radius: 50%; }
+    .term-bar i:nth-child(1) { background: #FF5F57; }
+    .term-bar i:nth-child(2) { background: #FEBC2E; }
+    .term-bar i:nth-child(3) { background: #28C840; }
+    .term-bar span { margin-left: auto; font: .72rem/1 var(--font-mono); color: #64748b; }
+    .term-body { padding: 20px 24px; font: .84rem/1.9 var(--font-mono); color: #E2E8F0; overflow-x: auto; }
+    .term-body .pr { color: var(--cyan); user-select: none; }
+    .term-body .ok { color: var(--green); }
+
+    /* ---------- Como funciona ---------- */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 40px; }
+    .step-num { font: 800 clamp(3rem, 6vw, 4.5rem)/1 var(--font-display); color: rgba(180, 98, 37, .18); }
+    .step b { display: block; margin-top: -16px; font: 700 1.08rem/1.3 var(--font-display); color: var(--text); }
+    .step p { margin-top: 6px; color: var(--muted); font-size: .93rem; }
+
+    /* ---------- Fontes ---------- */
+    .fontes { display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 8px; }
+    .fonte { display: block; padding: 13px 16px; border-radius: var(--radius); color: inherit; transition: background .2s ease; }
+    .fonte:hover { background: var(--surface-alt); text-decoration: none; }
+    .fonte b { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font: 600 .95rem/1.3 var(--font-ui); color: var(--text); }
+    .fonte b code { font: 600 .72rem/1 var(--font-mono); color: var(--primary-dark); }
+    .fonte b small { font: italic 400 .74rem/1 var(--font-ui); color: var(--muted); }
+    .fonte span { display: block; margin-top: 3px; color: var(--muted); font-size: .85rem; }
+    .fontes-nota { margin-top: 18px; color: var(--muted); font-size: .9rem; }
+
+    /* ---------- Antes / Depois ---------- */
+    .ad { display: grid; grid-template-columns: 1fr 1fr; }
+    .ad > div { padding: 4px 32px; }
+    .ad > div:first-child { padding-left: 0; }
+    .ad > div:last-child { border-left: 1px solid var(--border); }
+    .ad h3 { font: 700 1.02rem/1.3 var(--font-display); margin-bottom: 12px; }
+    .ad ul { list-style: none; }
+    .ad li { display: flex; gap: 10px; padding: 7px 0; font-size: .93rem; color: var(--muted); }
+    .ad-sem li::before { content: "\00d7"; color: #dc2626; font-weight: 700; }
+    .ad-com li::before { content: "\2713"; color: var(--green); font-weight: 700; }
+    .ad-com li { color: var(--text); }
+    @media (max-width: 720px) {
+      .ad { grid-template-columns: 1fr; }
+      .ad > div:last-child { border-left: none; padding-left: 0; padding-top: 26px; }
+    }
+
+    /* ---------- Para quem é / Roadmap / FAQ ---------- */
+    .personas, .faq p { max-width: 46rem; }
+    .personas p { padding: 9px 0; color: var(--muted); font-size: .95rem; }
+    .personas b { color: var(--text); font-weight: 600; }
+    .rm-list { list-style: none; max-width: 46rem; }
+    .rm-list li { padding: 10px 0; color: var(--muted); font-size: .95rem; }
+    .rm-list b { color: var(--text); }
+    .rm-link { display: inline-block; margin-top: 14px; font-weight: 600; }
+    .faq h3 { margin-top: 18px; font: 600 .98rem/1.4 var(--font-ui); color: var(--text); }
+    .faq p { margin-top: 4px; color: var(--muted); font-size: .93rem; }
+
+    /* ---------- Atividade recente ---------- */
+    .hidden-until-data { display: none; }
+    #releases { display: grid; margin-top: 6px; }
+    .rel-row {
+      display: grid; grid-template-columns: minmax(150px, 210px) auto 1fr;
+      gap: 16px; align-items: baseline; padding: 10px 14px;
+      border-radius: 8px; color: inherit;
+    }
+    .rel-row:hover { background: var(--surface-alt); text-decoration: none; }
+    .rel-row code { font: 500 .82rem/1.4 var(--font-mono); color: var(--primary-dark); }
+    .rel-row b { font: 600 .88rem/1 var(--font-ui); color: var(--text); }
+    .rel-row span { text-align: right; color: var(--muted); font-size: .82rem; }
+    @media (max-width: 640px) {
+      .rel-row { grid-template-columns: 1fr auto; }
+      .rel-row span { grid-column: 1 / -1; text-align: left; }
+    }
+
     .tbl-wrap {
       overflow-x: auto;
       border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm);
@@ -139,7 +253,10 @@ EOF
       font-family: var(--font-mono);
       white-space: nowrap;
     }
-    .soon { color: var(--muted); }
+    .tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
+      border: 1px solid var(--border);
+      border-collapse: collapse;
+    }
 
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
     .card {
@@ -157,134 +274,10 @@ EOF
     @keyframes slideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
     }
-  .tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
-  border: 1px solid var(--border);
-  border-collapse: collapse;
-}
-.tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
-  border: 1px solid var(--border);
-  border-collapse: collapse;
-}
-
-/* Badges estilizadas - hero */
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: .7rem;
-  font-weight: 600;
-  letter-spacing: .03em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  transition: all .2s ease;
-}
-.hero-badge:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(175, 92, 51, .15);
-  transform: translateY(-1px);
-}
-.hero-badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
-.hero-badge.primary { border-color: var(--primary); color: var(--primary); background: rgba(175, 92, 51, .1); }
-.hero-badge.primary:hover { background: var(--primary); color: var(--bg); box-shadow: 0 0 0 3px rgba(175, 92, 51, .2); }
-
-/* Efeito mesh gradient no hero */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(175, 92, 51, .08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 216, 214, .06) 0%, transparent 50%),
-    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(236, 72, 153, .04) 0%, transparent 40%);
-  pointer-events: none;
-  z-index: 0;
-}
-.hero { position: relative; }
-.hero > .wrap { position: relative; z-index: 1; }
-
-/* Contadores animados */
-.stat-counter {
-  font: 800 3rem/1 var(--font-display);
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.stat-label {
-  font: 500 .9rem/1 var(--font-ui);
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .05em;
-}
-
-/* Pipeline cards com hover elevados */
-.pipeline-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-  position: relative;
-  overflow: hidden;
-}
-.pipeline-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .3s ease;
-}
-.pipeline-card:hover::before { transform: scaleX(1); }
-.pipeline-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary);
-}
-.pipeline-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(175,92,51,.15), rgba(0,216,214,.15));
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 16px;
-}
-.pipeline-icon svg { width: 20px; height: 20px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
-
-/* Gradiente de texto reutilizável */
-.grad-text-xl {
-  font: 800 clamp(2.5rem, 6vw, 4rem)/1.1 var(--font-display);
-  background: linear-gradient(135deg, var(--primary) 0%, #EC4899 40%, var(--ocean) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Pulse suave para elementos de destaque */
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .7; }
-}
-.pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
-</style>
+  </style>
 </head>
 <body>
 
@@ -296,10 +289,10 @@ EOF
         <b class="grad-text">&#8251; Quantilica</b>
       </a>
       <ul>
-        <li><a href="https://quantilica.com/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Portal</a></li>
-        <li><a href="https://docs.quantilica.com/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Docs</a></li>
-        <li><a href="https://index.quantilica.com/simple/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Índice de pacotes</a></li>
-        <li><a href="https://github.com/Quantilica"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
+        <li><a href="https://quantilica.com/"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Portal</a></li>
+        <li><a href="https://docs.quantilica.com/"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Docs</a></li>
+        <li><a href="https://index.quantilica.com/simple/"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>&Iacute;ndice de pacotes</a></li>
+        <li><a href="https://github.com/Quantilica"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
       </ul>
     </nav>
   </div>
@@ -309,126 +302,190 @@ EOF
   <div class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <div class="hero-img" style="animation: float 6s ease-in-out infinite;">
-          <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua" style="max-width: 400px; filter: drop-shadow(0 0 30px rgba(175, 92, 51, 0.3));">
+        <div class="hero-img">
+          <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua" style="max-width: 400px;">
         </div>
         <div class="hero-text">
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
-          <p class="tagline">            Infraestrutura open-source para coletar, normalizar e analisar<br>
-            <b>dados p&uacute;blicos brasileiros</b> em Python &mdash; do IBGE ao BCB, do DATASUS
-            ao Tesouro Nacional, com manifesta&ccedil;&atilde;o de proveni&ccedil;&atilde;o SHA-256 em cada download.
-          </p>
-          <div class="hero-badges">
-            <span class="hero-badge primary"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>Python ≥ 3.12</span>
-            <span class="hero-badge"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>MIT License</span>
-            <span class="hero-badge"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Proveniência SHA-256</span>
-            <span class="hero-badge primary"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Polars / PyArrow</span>
-          </div>
-          </div>
+          <p class="hero-sub">Dados públicos brasileiros, prontos para análise &mdash; colete, normalize e audite com uma linha de comando.</p>
+          <p class="tagline">Do <span class="sr-only">IBGE, Banco Central, DATASUS, INMET e outras fontes públicas</span><span class="rotate-word" aria-hidden="true" data-words='["IBGE","Banco Central","DATASUS","INMET","Comex Stat","ANP","ANAC","Tesouro Nacional","Receita Federal"]'>IBGE</span> ao seu DataFrame Polars, com um único comando.</p>
+          <a class="btn-primary" href="https://docs.quantilica.com/">Documenta&ccedil;&atilde;o <span aria-hidden="true">&rarr;</span></a>
+          <p class="hero-meta">Python &ge; 3.12 <span>&middot;</span> MIT <span>&middot;</span> Proveni&ecirc;ncia SHA-256 <span>&middot;</span> Polars / PyArrow</p>
+        </div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#como-funciona" aria-label="Rolar para o conteúdo">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
+  </div>
+
+  <div class="term-strip">
+    <div class="wrap">
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i><span>bash</span></div>
+        <div class="term-body">
+<span class="pr">$</span> pip install quantilica-cli<br>
+<span class="pr">$</span> quantilica install bcb-sgs<br>
+<span class="ok">&#10003; Fonte 'bcb-sgs' instalada com sucesso!</span><br>
+<span class="pr">$</span> quantilica bcb-sgs series sync 433<br>
+<span class="ok">&#10003; s&eacute;rie sincronizada &middot; manifest SHA-256 registrado</span>
         </div>
       </div>
     </div>
   </div>
 
-  
-  <section id="sobre" style="padding: 52px 0; border-bottom: 1px solid var(--border);">
+  <section id="como-funciona">
     <div class="wrap">
-      <h2 style="font: 700 1.45rem/1.3 var(--font-display); margin-bottom: 6px; letter-spacing: -.01em;">O que nos move</h2>
-      <p class="lead" style="color: var(--muted); margin-bottom: 26px; max-width: 46rem;">Três pilares que guiam cada linha de código, cada pipeline e cada decisão de produto.</p>
-      <div class="cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
-          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-          <b style="display: block; margin-bottom: 4px; color: var(--text);">Transparência</b>
-          <span style="font-size: .9rem; color: var(--muted);">Dados abertos, código aberto, metodologia documentada — nada escondido.</span>
+      <h2>Como funciona</h2>
+      <p class="lead">Tr&ecirc;s passos entre voc&ecirc e a base de dados p&uacute;blica que precisa.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <b>Instale</b>
+          <p>A CLI vem do PyPI; cada fonte &eacute; um plugin instalado sob demanda pelo nosso &iacute;ndice pr&oacute;prio.</p>
         </div>
-        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
-          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m16 0h4"/></svg>
-          <b style="display: block; margin-bottom: 4px; color: var(--text);">Precisão</b>
-          <span style="font-size: .9rem; color: var(--muted);">Pipelines auditáveis, manifestos SHA-256, sem "magic numbers".</span>
+        <div class="step">
+          <div class="step-num">02</div>
+          <b>Escolha a fonte</b>
+          <p>Doze dom&iacute;nios, um mesmo padr&atilde;o de comando. Instale s&oacute; o que vai usar.</p>
         </div>
-        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
-          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <b style="display: block; margin-bottom: 4px; color: var(--text);">Acessibilidade</b>
-          <span style="font-size: .9rem; color: var(--muted);">APIs simples, documentação clara, curva de entrada baixa.</span>
+        <div class="step">
+          <div class="step-num">03</div>
+          <b>Analise</b>
+          <p>Dados tipados e versionados no seu disco, prontos para Polars, DuckDB ou o que vier depois.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <section id="instalacao">
-    <div class="wrap">
-      <h2>Instala&ccedil;&atilde;o</h2>
-      <p class="lead">Dois fluxos can&ocirc;nicos: pacotes ancorados no PyPI e fetchers distribu&iacute;dos pelo &iacute;ndice pr&oacute;prio (PEP&nbsp;503 hospedado no GitHub Pages).</p>
-
-      <pre class="code"><span class="cmt"># 1. CLI unificada e núcleo — direto do PyPI</span>
+      <pre class="code" style="margin-top:30px;"><span class="cmt"># CLI unificada e núcleo — direto do PyPI</span>
 <span class="cmd">pip install quantilica-cli</span> <span class="cmt">(traz o quantilica-core)</span>
 
-<span class="cmt"># 2. Fetchers sob demanda — via índice próprio</span>
+<span class="cmt"># Fetchers sob demanda — via índice próprio</span>
 <span class="cmd">quantilica install</span> <span class="arg">bcb-sgs</span>
-<span class="cmd">quantilica install</span> <span class="arg">rtn</span></pre>
+<span class="cmd">quantilica install</span> <span class="arg">rtn</span>
 
-      <pre class="code"><span class="cmt"># Alternativa manual (sem a CLI), apontando pip/uv para o índice:</span>
+<span class="cmt"># Alternativa manual (sem a CLI), apontando pip/uv para o índice:</span>
 <span class="cmd">uv pip install rtn-fetcher</span> <span class="arg">--index-url https://index.quantilica.com/simple/</span>
 <span class="cmd">uv pip install quantilica-analytics</span> <span class="arg">--index-url https://index.quantilica.com/simple/</span></pre>
     </div>
   </section>
 
-  
-  <section id="estatisticas" style="padding: 52px 0; border-bottom: 1px solid var(--border);">
+  <section id="exemplo">
     <div class="wrap">
-      <h2 style="font: 700 1.45rem/1.3 var(--font-display); margin-bottom: 6px; letter-spacing: -.01em;">Distribuição dos pacotes</h2>
-      <p class="lead" style="color: var(--muted); margin-bottom: 26px; max-width: 46rem;">Como os pacotes do ecossistema se distribuem entre PyPI e índice próprio.</p>
-      <div class="cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
-          <b style="display: block; margin-bottom: 16px; color: var(--text); font: 700 1.1rem/1.3 var(--font-display);">PyPI (âncoras)</b>
-          <div style="display: grid; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 40%; height: 8px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); border-radius: 4px;"></div>
-              <span style="font-size: .9rem; color: var(--text);">quantilica-cli + quantilica-core</span>
-            </div>
-            <small style="color: var(--muted);">Publicados no PyPI, instalação direta</small>
-          </div>
+      <h2>Do download ao DataFrame</h2>
+      <p class="lead">Fluxo completo com o INMET: baixa, tratamento e exporta&ccedil;&atilde;o direta para Parquet &mdash; pronto para an&aacute;lise.</p>
+      <pre class="code"><span class="cmt"># Baixa 5 anos do BDMEP em paralelo…</span>
+<span class="cmd">inmet-fetcher sync</span> <span class="arg">2020:2024 -o ./dados --workers 4</span>
+
+<span class="cmt"># …e exporta unificado em Parquet (snake_case, datetime nativo)</span>
+<span class="cmd">inmet-fetcher read</span> <span class="arg">-o ./dados --uf SP,RJ --save-as sudeste.parquet</span></pre>
+      <pre class="code"><span class="cmt"># sudeste.parquet</span>
+<span class="cmd">import polars as pl
+
+df = pl.read_parquet("sudeste.parquet")
+print(df.group_by("uf").len())</span></pre>
+      <p class="fontes-nota">Retry autom&aacute;tico, verifica&ccedil;&atilde;o de integridade e manifestos de proveni&ecirc;ncia acontecem em todas as etapas &mdash; sem configura&ccedil;&atilde;o extra.</p>
+    </div>
+  </section>
+
+  <section id="fontes">
+    <div class="wrap">
+      <h2>Doze fontes, um único padr&atilde;o</h2>
+      <p class="lead">Mesma CLI, mesma estrutura de sa&iacute;da, mesma proveni&ecirc;ncia &mdash; troque de dom&iacute;nio sem reaprender a ferramenta.</p>
+      <div class="fontes">
+        <a class="fonte" href="https://docs.quantilica.com/bcb/bcb-sgs-fetcher/"><b>Banco Central <code>bcb-sgs</code></b><span>Séries temporais do SGS</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/ibge/sidra-fetcher/"><b>IBGE SIDRA <code>sidra</code> <small>em breve na CLI</small></b><span>Macroeconomia e preços</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/saude/datasus-fetcher/"><b>DATASUS <code>datasus</code></b><span>Microdados de saúde pública</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/clima/inmet-fetcher/"><b>INMET <code>inmet</code></b><span>Clima por estação (BDMEP)</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/comex/comex-fetcher/"><b>Comex Stat <code>comex</code></b><span>Comércio exterior</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/trabalho/pdet-fetcher/"><b>MTE/PDET <code>pdet</code></b><span>Trabalho — CAGED e RAIS</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/tesouro/rtn-fetcher/"><b>Tesouro Nacional <code>rtn</code></b><span>Fiscal — Registros RTN</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/tesouro/tesouro-direto-fetcher/"><b>Tesouro Direto <code>td</code></b><span>Títulos públicos</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/petroleo/anp-fetcher/"><b>ANP <code>anp</code></b><span>Petróleo, gás e biocombustíveis</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/aviacao/anac-fetcher/"><b>ANAC <code>anac</code></b><span>Aviação civil</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/educacao/inep-fetcher/"><b>INEP <code>inep</code> <small>em breve na CLI</small></b><span>Educação — ENEM e Censo Escolar</span></a>
+        <a class="fonte" href="https://docs.quantilica.com/empresas/rfb-cnpj-fetcher/"><b>Receita Federal <code>rfb-cnpj</code> <small>em breve na CLI</small></b><span>CNPJ de empresas</span></a>
+      </div>
+      <p class="fontes-nota">&Acirc;ncoras no PyPI: <code>quantilica-cli</code> e <code>quantilica-core</code> (<code>pip install</code>). Tamb&eacute;m no &iacute;ndice pr&oacute;prio: <code>quantilica-analytics</code>. Em breve: <code>quantilica-catalog</code>.</p>
+    </div>
+  </section>
+
+  <section id="antes-depois">
+    <div class="wrap">
+      <h2>Antes e depois</h2>
+      <p class="lead">O que muda no seu dia a dia quando a coleta deixa de ser manual.</p>
+      <div class="ad">
+        <div class="ad-sem">
+          <h3>Sem Quantilica</h3>
+          <ul>
+            <li>Baixar CSV e ZIP manualmente em portais diferentes</li>
+            <li>Limpar layout de largura fixa e dicionários em PDF</li>
+            <li>Conferir schema toda vez que a fonte muda de lugar</li>
+            <li>Reconstruir o histórico quando o link quebra</li>
+            <li>Responder "de onde veio esse número?" de memória</li>
+          </ul>
         </div>
-        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
-          <b style="display: block; margin-bottom: 16px; color: var(--text); font: 700 1.1rem/1.3 var(--font-display);">Índice próprio (fetchers + analytics)</b>
-          <div style="display: grid; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 60%; height: 8px; background: linear-gradient(90deg, var(--cyan), var(--primary)); border-radius: 4px;"></div>
-              <span style="font-size: .9rem; color: var(--text);">9 fetchers + analytics</span>
-            </div>
-            <small style="color: var(--muted);">Distribuídos via GitHub Releases + índice PEP 503</small>
-          </div>
+        <div class="ad-com">
+          <h3>Com Quantilica</h3>
+          <ul>
+            <li><code>quantilica install &lt;fonte&gt;</code> e um comando de sync</li>
+            <li>Saída tipada em Parquet, pronto para Polars</li>
+            <li>Manifest SHA-256 registrando cada download</li>
+            <li>Hist&oacute;rico versionado no seu disco &mdash; reprodut&iacute;vel</li>
+            <li>Proveni&ecirc;ncia audit&aacute;vel em arquivo, n&atilde;o de mem&oacute;ria</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
-  <section id="pacotes">
+
+  <section id="para-quem">
     <div class="wrap">
-      <h2>Pacotes</h2>
-      <p class="lead">Estado real da distribui&ccedil;&atilde;o hoje.</p>
-      <div class="tbl-wrap">
-        <table>
-          <thead>
-            <tr><th>Distribui&ccedil;&atilde;o</th><th>Pacote</th><th>Dom&iacute;nio</th><th>Instala&ccedil;&atilde;o</th></tr>
-          </thead>
-          <tbody>
-            <tr><td rowspan="2">PyPI</td><td><code>quantilica-cli</code></td><td>CLI unificada + plugin system</td><td><code>pip install quantilica-cli</code></td></tr>
-            <tr><td><code>quantilica-core</code></td><td>HTTP, storage at&ocirc;mico, manifests SHA-256</td><td><code>pip install quantilica-core</code></td></tr>
-            <tr><td rowspan="9">&Iacute;ndice pr&oacute;prio</td><td><code>bcb-sgs-fetcher</code></td><td>S&eacute;ries temporais do Banco Central (SGS)</td><td><code>quantilica install bcb-sgs</code></td></tr>
-            <tr><td><code>rtn-fetcher</code></td><td>Fiscal &mdash; Tesouro Nacional (RTN)</td><td><code>quantilica install rtn</code></td></tr>
-            <tr><td><code>comex-fetcher</code></td><td>Com&eacute;rcio exterior &mdash; Comex Stat</td><td><code>quantilica install comex</code></td></tr>
-            <tr><td><code>datasus-fetcher</code></td><td>Sa&uacute;de &mdash; DATASUS FTP</td><td><code>quantilica install datasus</code></td></tr>
-            <tr><td><code>inmet-fetcher</code></td><td>Clima &mdash; esta&ccedil;&otilde;es INMET</td><td><code>quantilica install inmet</code></td></tr>
-            <tr><td><code>pdet-fetcher</code></td><td>Trabalho &mdash; CAGED/RAIS (PDET)</td><td><code>quantilica install pdet</code></td></tr>
-            <tr><td><code>tesouro-direto-fetcher</code></td><td>T&iacute;tulos p&uacute;blicos &mdash; Tesouro Direto</td><td><code>quantilica install td</code></td></tr>
-            <tr><td><code>anp-fetcher</code></td><td>Combust&iacute;veis &mdash; ANP</td><td><code>quantilica install anp</code></td></tr>
-            <tr><td><code>anac-fetcher</code></td><td>Avia&ccedil;&atilde;o civil &mdash; ANAC</td><td><code>quantilica install anac</code></td></tr>
-          </tbody>
-        </table>
+      <h2>Para quem &eacute;</h2>
+      <p class="lead">Feito para quem transforma dado p&uacute;blico em resposta.</p>
+      <div class="personas">
+        <p><b>Pesquisador</b> &mdash; referencie exatamente o conjunto de dados usado: o hash SHA-256 do manifesto garante que a replica&ccedil;&atilde;o encontra os mesmos arquivos.</p>
+        <p><b>Jornalista de dados</b> &mdash; da pauta &agrave; s&eacute;rie hist&oacute;rica sem raspar portal: o comando certo j&aacute; sabe onde o dado mora e como ele mudou de layout.</p>
+        <p><b>Analista</b> &mdash; s&eacute;ries tipadas e consistentes entre dom&iacute;nios, prontas para alimentar notebook, dashboard ou pipeline de ML.</p>
+        <p><b>Estudante</b> &mdash; curva de entrada baixa: Python b&aacute;sico e um comando por fonte. Veja os perfis completos na <a href="https://docs.quantilica.com/personas/">documenta&ccedil;&atilde;o</a>.</p>
       </div>
-      <p style="margin-top:14px;color:var(--muted);font-size:.9rem;">
-        Tamb&eacute;m no &iacute;ndice: <code>quantilica-analytics</code> (Polars/Parquet).
-        Em breve no &iacute;ndice: <span class="soon"><code>sidra-fetcher</code>, <code>inep-fetcher</code>, <code>rfb-cnpj-fetcher</code>, <code>quantilica-catalog</code></span>.
-      </p>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="wrap">
+      <h2>Roadmap aberto</h2>
+      <p class="lead">Transpar&ecirc;ncia tamb&eacute;m sobre para onde o projeto est&aacute; indo.</p>
+      <ul class="rm-list">
+        <li><b>Fase 1 &mdash; Confian&ccedil;a:</b> health checks das fontes e status page p&uacute;blica, para que quebras externas virem alertas, n&atilde;o surpresas.</li>
+        <li><b>Fase 2 &mdash; Analytical-ready:</b> contratos de dados com valida&ccedil;&atilde;o na leitura e time travel endereç&aacute;vel por conte&uacute;do.</li>
+        <li><b>Fase 3 &mdash; Ecossistema:</b> cookbook de cruzamentos de alto valor, governança comunitária e sustentabilidade.</li>
+      </ul>
+      <a class="rm-link" href="https://docs.quantilica.com/roadmap/">Roadmap completo na documenta&ccedil;&atilde;o &rarr;</a>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <h3>Preciso de chave de API ou cadastro?</h3>
+        <p>N&atilde;o. Todas as fontes usam endpoints p&uacute;blicos e abertos dos &oacute;rg&atilde;os oficiais.</p>
+        <h3>Funciona no Windows, macOS e Linux?</h3>
+        <p>Sim. A stack &eacute; Python &ge; 3.12 puro, sem depend&ecirc;ncias de sistema.</p>
+        <h3>Quanto custa?</h3>
+        <p>Nada. C&oacute;digo MIT, sem plano pago e sem telemetria.</p>
+        <h3>Onde ficam os dados baixados?</h3>
+        <p>No seu disco, sob seu controle &mdash; em Parquet/CSV acompanhados de manifestos <code>.manifest.json</code> com o hash SHA-256 de cada arquivo.</p>
+        <h3>Como citar em uma publica&ccedil;&atilde;o?</h3>
+        <p>Cite o pacote, a vers&atilde;o e o reposit&oacute;rio. O hash registrado no manifest permite reproduzir exatamente o mesmo conjunto de dados usado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="atividade" class="hidden-until-data">
+    <div class="wrap">
+      <h2>Atividade recente</h2>
+      <p class="lead">&Uacute;ltimos releases publicados nos reposit&oacute;rios do ecossistema.</p>
+      <div id="releases"></div>
     </div>
   </section>
 
@@ -453,47 +510,60 @@ EOF
   </div>
 </footer>
 
+<script>
+  // Palavras rotativas na tagline (respeita prefers-reduced-motion)
+  (() => {
+    const rot = document.querySelector('.rotate-word');
+    if (!rot) return;
+    let words;
+    try { words = JSON.parse(rot.dataset.words); } catch { return; }
+    if (!Array.isArray(words) || words.length < 2) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let wi = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      rot.classList.add('rot-out');
+      setTimeout(() => {
+        wi = (wi + 1) % words.length;
+        rot.textContent = words[wi];
+        rot.classList.remove('rot-out');
+      }, 300);
+    }, 2600);
+  })();
 
-  <script>
-    // Contadores animados
-    document.addEventListener('DOMContentLoaded', () => {
-      const counters = document.querySelectorAll('.stat-counter');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const target = parseInt(el.dataset.target);
-            let current = 0;
-            const duration = 1500;
-            const step = target / (duration / 16);
-            const animate = () => {
-              current += step;
-              if (current >= target) {
-                el.textContent = target + (target === 100 ? '%' : '+');
-                el.style.opacity = '1';
-              } else {
-                el.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
-                requestAnimationFrame(animate);
-              }
-            };
-            animate();
-            observer.unobserve(el);
-          }
+  // Atividade recente — releases.json gerado no build; seção permanece oculta se ausente
+  (() => {
+    const section = document.getElementById('atividade');
+    const wrap = document.getElementById('releases');
+    if (!section || !wrap) return;
+    fetch('/assets/releases.json')
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(items => {
+        if (!Array.isArray(items) || !items.length) return;
+        const fmt = iso => {
+          const d = new Date(iso + 'T00:00:00Z');
+          return isNaN(d) ? '' : d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+        };
+        items.forEach(it => {
+          const a = document.createElement('a');
+          a.className = 'rel-row';
+          a.href = it.url || ('https://github.com/Quantilica/' + it.repo);
+          a.target = '_blank';
+          a.rel = 'noopener';
+          const code = document.createElement('code');
+          code.textContent = it.repo;
+          const b = document.createElement('b');
+          b.textContent = it.tag;
+          const span = document.createElement('span');
+          span.textContent = fmt(it.date);
+          a.append(code, b, span);
+          wrap.appendChild(a);
         });
-      }, { threshold: .5 });
-      counters.forEach(c => observer.observe(c));
-    });
-
-    // Parallax suave no hero mesh
-    document.addEventListener('mousemove', (e) => {
-      const hero = document.querySelector('.hero');
-      if (!hero) return;
-      const rect = hero.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - .5;
-      const y = (e.clientY - rect.top) / rect.height - .5;
-      hero.style.backgroundPosition = `${50 + x * 10}% ${50 + y * 10}%`;
-    });
-  </script>
+        section.style.display = '';
+      })
+      .catch(() => {});
+  })();
+</script>
 </body>
 
 </html>
