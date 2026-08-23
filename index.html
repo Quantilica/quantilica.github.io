@@ -99,10 +99,9 @@
     .hero::before {
       content: "";
       position: absolute; inset: 0;
-      background-image: radial-gradient(var(--border) 1.1px, transparent 1.1px);
-      background-size: 26px 26px;
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 94%);
-              mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 94%);
+      background-image: url('/assets/art/hero-fluxo.webp');
+      background-size: cover;
+      background-position: center bottom;
       pointer-events: none;
     }
     .hero > .wrap { position: relative; z-index: 1; }
@@ -193,9 +192,29 @@
     .fonte b code { font: 600 .72rem/1 var(--font-mono); color: var(--primary-dark); }
     .fonte b small { font: italic 400 .74rem/1 var(--font-ui); color: var(--muted); }
     .fonte span { display: block; margin-top: 3px; color: var(--muted); font-size: .85rem; }
-    #plataforma .fonte span { margin-top: 5px; font-size: .88rem; }
     .app-id { display: inline-flex; align-items: center; gap: 9px; }
     .app-id img { width: 26px; height: 26px; border-radius: 7px; }
+    #plataforma {
+      background-image: url('/assets/art/contornos.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    #plataforma p.lead { font-size: 1.18rem; max-width: 50rem; }
+    #plataforma .fontes { grid-template-columns: 1fr; gap: 4px; max-width: 52rem; }
+    #plataforma .fonte { padding: 18px 20px; }
+    #plataforma .fonte b { font-size: 1.14rem; }
+    #plataforma .app-id img { width: 36px; height: 36px; border-radius: 10px; }
+    #plataforma .fonte b code { font-size: .84rem; }
+    #plataforma .fonte span { margin-top: 6px; font-size: 1.02rem; line-height: 1.55; }
+    #plataforma .fontes-nota { font-size: .95rem; }
+    .art-divider {
+      display: block;
+      width: 100%;
+      aspect-ratio: 40 / 7;
+      background-image: url('/assets/art/ondas.webp');
+      background-size: cover;
+      background-position: center bottom;
+    }
     .fontes-nota { margin-top: 18px; color: var(--muted); font-size: .9rem; }
 
     /* ---------- Antes / Depois ---------- */
@@ -271,7 +290,7 @@
     .card b { display: block; margin-bottom: 4px; color: var(--text); }
     .card span { font-size: .9rem; color: var(--muted); }
 
-    footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); }
+    footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
     @keyframes slideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -520,6 +539,7 @@ print(df.group_by("uf").len())</span></pre>
   </section>
 </main>
 
+<div class="art-divider" role="presentation"></div>
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Quantilica &mdash; c&oacute;digo MIT; dados das fontes oficiais sujeitos &agrave;s respectivas licen&ccedil;as.</span>

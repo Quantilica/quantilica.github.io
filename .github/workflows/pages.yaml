@@ -38,6 +38,8 @@ jobs:
           cp assets/quantilica-logo-icon.png _pages/assets/quantilica-logo-icon.png
           mkdir -p _pages/assets/apps
           cp assets/apps/*.webp _pages/assets/apps/
+          mkdir -p _pages/assets/art
+          cp assets/art/*.webp _pages/assets/art/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
