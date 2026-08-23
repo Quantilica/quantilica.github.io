@@ -37,24 +37,25 @@
   <style>
     :root {
       /* Paleta oficial — branding/colors/palette.md */
-      --primary: #AF5C33;        /* Marrom Tabby (Cobre) */
-      --primary-dark: #8A4526;   /* sombra do cobre p/ hover */
-      --ocean: #0C4A6E;          /* Deep Ocean (Sombra) */
-      --cyan: #00D8D6;           /* Cyan Iluminado */
-      --sand: #DF9D6A;           /* Bege Areia */
-      --bg: #ffffff;
-      --surface: #ffffff;
-      --surface-alt: #FBF4ED;    /* tint de Bege Areia p/ cards/código em Light Mode */
-      --text: #0B101E;           /* Fundo Noturno como texto */
-      --muted: #475569;          /* Cinza Chumbo */
-      --border: #CBD5E1;         /* Cinza Borda */
-      --green: #10B981;          /* Sucesso */
-      --shadow-sm: 0 1px 2px 0 rgba(11, 16, 30, .06);
-      --shadow-md: 0 4px 6px -1px rgba(11, 16, 30, .1);
-      --radius: 12px;
-      --font-ui: "Inter", Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-display: "Inter Tight", Inter, Roboto, sans-serif;
-      --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+--primary: #ED8936;            /* Cobre mais brilhante */
+  --primary-dark: #B46225;     /* sombra do cobre p/ hover */
+  --ocean: #10B3F2;            /* Cyan Iluminado mais vibrante */
+  --cyan: #14B8A6;               /* Ciano vibrante */
+  --sand: #F8DA98;               /* Bege Areia mais claro */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #F3F2F1;    /* tint de Bege Areia p/ cards/código em Light Mode */
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --green: #10b981;
+  --shadow-sm: 0 1px 2px 0 rgba(11, 16, 30, .05);
+  --shadow-md: 0 4px 6px -1px rgba(11, 16, 30, .1);
+  --radius: 12px;
+  --font-ui: "Inter", Roboto, sans-serif;
+  --font-display: "Inter Tight", Inter, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+EOF
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -70,7 +71,8 @@
     .grad-text {
       background: linear-gradient(135deg, var(--primary) 0%, var(--ocean) 100%);
       -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 12px rgba(var(--primary), .8);
     }
 
     header {
@@ -82,7 +84,7 @@
     }
     nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
     .brand { display: flex; align-items: center; gap: 10px; }
-    .brand img { width: 36px; height: 36px; border-radius: 50%; }
+    .brand img { width: 36px; height: 36px; }
     .brand b { font: 800 1.15rem/1 var(--font-display); letter-spacing: .01em; }
     nav ul { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
     nav ul a { color: var(--muted); font-size: .93rem; font-weight: 500; }
@@ -96,7 +98,6 @@
     .hero-img { flex: 0 1 340px; text-align: center; }
     .hero-img img {
       width: 100%; max-width: 340px; height: auto;
-      border-radius: var(--radius); box-shadow: var(--shadow-md);
       animation: fadeIn .8s ease-out;
     }
     .hero-text { flex: 1 1 420px; max-width: 560px; }
@@ -105,8 +106,8 @@
     .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
     .badge {
       font-size: .82rem; color: var(--muted);
-      border: 1px solid var(--border); border-radius: 999px;
-      padding: 5px 14px; background: var(--surface-alt); box-shadow: var(--shadow-sm);
+      border-radius: 999px;
+      padding: 5px 14px; background: var(--surface-alt);
     }
 
     section { padding: 52px 0; border-bottom: 1px solid var(--border); animation: fadeIn .8s ease-out; }
@@ -116,7 +117,6 @@
 
     pre.code {
       background: var(--surface-alt);
-      border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow-sm);
       padding: 16px 18px;
@@ -129,7 +129,7 @@
     pre.code .arg { color: var(--green); }
 
     .tbl-wrap {
-      overflow-x: auto; border: 1px solid var(--border);
+      overflow-x: auto;
       border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm);
     }
     table { width: 100%; border-collapse: collapse; font-size: .93rem; }
@@ -137,7 +137,7 @@
     th { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; background: var(--surface-alt); }
     tr:last-child td { border-bottom: none; }
     td code, li code, p code {
-      background: var(--surface-alt); border: 1px solid var(--border); border-radius: 6px;
+      background: var(--surface-alt); border-radius: 6px;
       padding: 1px 7px; font-size: .84em;
       font-family: var(--font-mono);
       white-space: nowrap;
@@ -146,11 +146,11 @@
 
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
     .card {
-      display: block; background: var(--surface); border: 1px solid var(--border);
+      display: block; background: var(--surface);
       border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow-sm);
-      transition: box-shadow .25s ease, border-color .25s ease;
+      transition: box-shadow .25s ease;
     }
-    .card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); text-decoration: none; }
+    .card:hover { box-shadow: var(--shadow-md); text-decoration: none; }
     .card b { display: block; margin-bottom: 4px; color: var(--text); }
     .card span { font-size: .9rem; color: var(--muted); }
 
@@ -162,7 +162,15 @@
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
     }
-  </style>
+  .tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
+  border: 1px solid var(--border);
+  border-collapse: collapse;
+}
+.tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
+  border: 1px solid var(--border);
+  border-collapse: collapse;
+}
+</style>
 </head>
 <body>
 
@@ -192,12 +200,26 @@
         </div>
         <div class="hero-text">
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
-          <p class="tagline">
+          <p class="tagline">            Infraestrutura open-source para coletar, normalizar e analisar<br>
+            <b>dados p&uacute;blicos brasileiros</b> em Python &mdash; do IBGE ao BCB, do DATASUS
+            ao Tesouro Nacional, com manifesta&ccedil;&atilde;o de proveni&ccedil;&atilde;o SHA-256 em cada download.
+          </p>
             Infraestrutura open-source para coletar, normalizar e analisar
             <b>dados p&uacute;blicos brasileiros</b> em Python &mdash; do IBGE ao BCB, do DATASUS
             ao Tesouro Nacional, com manifesta&ccedil;&atilde;o de proveni&ecirc;ncia SHA-256 em cada download.
           </p>
           <div class="badges">
+
+<div class="personality-flourish">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5">
+<path d="M12 2L4 7l20 20"/>
+<path d="M21 21l-5-5l5-5"/>
+</svg>
+<svg viewBox="0 24 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5">
+<path d="M12 22s-4-5.69-8-5.69"/>
+<path d="M21 21l5-5"/>
+</svg>
+</div>
             <span class="badge">Python &ge; 3.12</span>
             <span class="badge">MIT License</span>
             <span class="badge">Proveni&ecirc;ncia SHA-256</span>
