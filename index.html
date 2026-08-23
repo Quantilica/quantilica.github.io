@@ -189,10 +189,13 @@
     .fontes { display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 8px; }
     .fonte { display: block; padding: 13px 16px; border-radius: var(--radius); color: inherit; transition: background .2s ease; }
     .fonte:hover { background: var(--surface-alt); text-decoration: none; }
-    .fonte b { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font: 600 .95rem/1.3 var(--font-ui); color: var(--text); }
+    .fonte b { display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 600 .95rem/1.3 var(--font-ui); color: var(--text); }
     .fonte b code { font: 600 .72rem/1 var(--font-mono); color: var(--primary-dark); }
     .fonte b small { font: italic 400 .74rem/1 var(--font-ui); color: var(--muted); }
     .fonte span { display: block; margin-top: 3px; color: var(--muted); font-size: .85rem; }
+    #plataforma .fonte span { margin-top: 5px; font-size: .88rem; }
+    .app-id { display: inline-flex; align-items: center; gap: 9px; }
+    .app-id img { width: 26px; height: 26px; border-radius: 7px; }
     .fontes-nota { margin-top: 18px; color: var(--muted); font-size: .9rem; }
 
     /* ---------- Antes / Depois ---------- */
@@ -486,6 +489,20 @@ print(df.group_by("uf").len())</span></pre>
       <h2>Atividade recente</h2>
       <p class="lead">&Uacute;ltimos releases publicados nos reposit&oacute;rios do ecossistema.</p>
       <div id="releases"></div>
+    </div>
+  </section>
+
+  <section id="plataforma">
+    <div class="wrap">
+      <h2>A plataforma</h2>
+      <p class="lead">No <a href="https://quantilica.com/">quantilica.com</a>, o que a CLI coleta vira explora&ccedil;&atilde;o no navegador &mdash; com uma &uacute;nica conta para todos os m&oacute;dulos.</p>
+      <div class="fontes">
+        <a class="fonte" href="https://quantilica.com/hedgehog/"><b><span class="app-id"><img src="/assets/apps/hedgehog.webp" alt="" width="26" height="26">Hedgehog</span><code>/hedgehog</code></b><span>S&eacute;ries do BCB (SGS) com busca e pain&eacute;is personalizados</span></a>
+        <a class="fonte" href="https://quantilica.com/fish/"><b><span class="app-id"><img src="/assets/apps/fish.webp" alt="" width="26" height="26">Fish</span><code>/fish</code></b><span>Cat&aacute;logo completo do SIDRA: assuntos, pesquisas, vari&aacute;veis e calend&aacute;rio de divulga&ccedil;&otilde;es</span></a>
+        <a class="fonte" href="https://quantilica.com/sloth/"><b><span class="app-id"><img src="/assets/apps/sloth.webp" alt="" width="26" height="26">Sloth</span><code>/sloth</code></b><span>Tesouro Direto em profundidade: curvas de juros, infla&ccedil;&atilde;o impl&iacute;cita, calculadora e perfil dos investidores</span></a>
+        <a class="fonte" href="https://quantilica.com/flamingo/"><b><span class="app-id"><img src="/assets/apps/flamingo.webp" alt="" width="26" height="26">Flamingo</span><code>/flamingo</code></b><span>Contas p&uacute;blicas do RTN em tabelas naveg&aacute;veis, com s&eacute;ries, compara&ccedil;&otilde;es e exporta&ccedil;&atilde;o CSV</span></a>
+        <a class="fonte" href="https://quantilica.com/alpaca/"><b><span class="app-id"><img src="/assets/apps/alpaca.webp" alt="" width="26" height="26">Alpaca</span><code>/alpaca</code></b><span>Cat&aacute;logo monitorado dos arquivos DATASUS, com hist&oacute;rico e alerta de mudan&ccedil;as</span></a>
+      </div>
     </div>
   </section>
 

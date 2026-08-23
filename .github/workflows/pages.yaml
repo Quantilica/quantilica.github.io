@@ -36,6 +36,8 @@ jobs:
           cp index.html site.webmanifest _pages/
           cp favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png android-chrome-192x192.png android-chrome-512x512.png _pages/
           cp assets/quantilica-logo-icon.png _pages/assets/quantilica-logo-icon.png
+          mkdir -p _pages/assets/apps
+          cp assets/apps/*.webp _pages/assets/apps/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
