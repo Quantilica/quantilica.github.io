@@ -172,6 +172,118 @@ EOF
   border: 1px solid var(--border);
   border-collapse: collapse;
 }
+
+/* Badges estilizadas - hero */
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: all .2s ease;
+}
+.hero-badge:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(175, 92, 51, .15);
+  transform: translateY(-1px);
+}
+.hero-badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+.hero-badge.primary { border-color: var(--primary); color: var(--primary); background: rgba(175, 92, 51, .1); }
+.hero-badge.primary:hover { background: var(--primary); color: var(--bg); box-shadow: 0 0 0 3px rgba(175, 92, 51, .2); }
+
+/* Efeito mesh gradient no hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(175, 92, 51, .08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 216, 214, .06) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(236, 72, 153, .04) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero { position: relative; }
+.hero > .wrap { position: relative; z-index: 1; }
+
+/* Contadores animados */
+.stat-counter {
+  font: 800 3rem/1 var(--font-display);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label {
+  font: 500 .9rem/1 var(--font-ui);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* Pipeline cards com hover elevados */
+.pipeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.pipeline-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+.pipeline-card:hover::before { transform: scaleX(1); }
+.pipeline-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+.pipeline-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(175,92,51,.15), rgba(0,216,214,.15));
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.pipeline-icon svg { width: 20px; height: 20px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
+
+/* Gradiente de texto reutilizável */
+.grad-text-xl {
+  font: 800 clamp(2.5rem, 6vw, 4rem)/1.1 var(--font-display);
+  background: linear-gradient(135deg, var(--primary) 0%, #EC4899 40%, var(--ocean) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Pulse suave para elementos de destaque */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+.pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
 </style>
 </head>
 <body>
@@ -206,10 +318,12 @@ EOF
             <b>dados p&uacute;blicos brasileiros</b> em Python &mdash; do IBGE ao BCB, do DATASUS
             ao Tesouro Nacional, com manifesta&ccedil;&atilde;o de proveni&ccedil;&atilde;o SHA-256 em cada download.
           </p>
-          <span class="badge">Python &ge; 3.12</span>
-            <span class="badge">MIT License</span>
-            <span class="badge">Proveni&ecirc;ncia SHA-256</span>
-            <span class="badge">Polars / PyArrow</span>
+          <div class="hero-badges">
+            <span class="hero-badge primary"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>Python ≥ 3.12</span>
+            <span class="hero-badge"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>MIT License</span>
+            <span class="hero-badge"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Proveniência SHA-256</span>
+            <span class="hero-badge primary"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Polars / PyArrow</span>
+          </div>
           </div>
         </div>
       </div>
@@ -339,5 +453,47 @@ EOF
   </div>
 </footer>
 
+
+  <script>
+    // Contadores animados
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('.stat-counter');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            let current = 0;
+            const duration = 1500;
+            const step = target / (duration / 16);
+            const animate = () => {
+              current += step;
+              if (current >= target) {
+                el.textContent = target + (target === 100 ? '%' : '+');
+                el.style.opacity = '1';
+              } else {
+                el.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
+                requestAnimationFrame(animate);
+              }
+            };
+            animate();
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: .5 });
+      counters.forEach(c => observer.observe(c));
+    });
+
+    // Parallax suave no hero mesh
+    document.addEventListener('mousemove', (e) => {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - .5;
+      const y = (e.clientY - rect.top) / rect.height - .5;
+      hero.style.backgroundPosition = `${50 + x * 10}% ${50 + y * 10}%`;
+    });
+  </script>
 </body>
+
 </html>
