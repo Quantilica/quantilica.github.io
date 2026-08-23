@@ -69,11 +69,12 @@ EOF
     a:hover { color: var(--primary-dark); text-decoration: underline; }
     .wrap { max-width: 1024px; margin: 0 auto; padding: 0 24px; }
     .grad-text {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--ocean) 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, #EC4899 50%, var(--ocean) 100%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 12px rgba(var(--primary), .8);
     }
+    text-shadow: 0 0 12px var(--primary), 0 0 24px var(--primary);
 
     header {
       position: sticky; top: 0; z-index: 10;
@@ -86,9 +87,10 @@ EOF
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand img { width: 36px; height: 36px; }
     .brand b { font: 800 1.15rem/1 var(--font-display); letter-spacing: .01em; }
-    nav ul { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
-    nav ul a { color: var(--muted); font-size: .93rem; font-weight: 500; }
+    nav ul { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; align-items: center; }
+    nav ul a { color: var(--muted); font-size: .93rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
     nav ul a:hover { color: var(--primary); text-decoration: none; }
+    nav ul a svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
     .hero-grid {
@@ -102,6 +104,7 @@ EOF
     }
     .hero-text { flex: 1 1 420px; max-width: 560px; }
     .hero-text h1 { font: 800 clamp(2rem, 5vw, 2.9rem)/1.2 var(--font-display); letter-spacing: -.01em; }
+    text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
     .hero-text .tagline { margin-top: 16px; color: var(--muted); font-size: 1.1rem; }
     .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
     .badge {
@@ -161,6 +164,11 @@ EOF
 
     @keyframes slideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
     }
@@ -184,10 +192,10 @@ EOF
         <b class="grad-text">&#8251; Quantilica</b>
       </a>
       <ul>
-        <li><a href="https://quantilica.com/">Portal</a></li>
-        <li><a href="https://docs.quantilica.com/">Docs</a></li>
-        <li><a href="https://index.quantilica.com/simple/">Índice de pacotes</a></li>
-        <li><a href="https://github.com/Quantilica">GitHub</a></li>
+        <li><a href="https://quantilica.com/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Portal</a></li>
+        <li><a href="https://docs.quantilica.com/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Docs</a></li>
+        <li><a href="https://index.quantilica.com/simple/"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Índice de pacotes</a></li>
+        <li><a href="https://github.com/Quantilica"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
       </ul>
     </nav>
   </div>
@@ -197,8 +205,8 @@ EOF
   <div class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <div class="hero-img">
-          <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua">
+        <div class="hero-img" style="animation: float 6s ease-in-out infinite;">
+          <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua" style="max-width: 400px; filter: drop-shadow(0 0 30px rgba(175, 92, 51, 0.3));">
         </div>
         <div class="hero-text">
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
@@ -232,6 +240,30 @@ EOF
     </div>
   </div>
 
+  
+  <section id="sobre" style="padding: 52px 0; border-bottom: 1px solid var(--border);">
+    <div class="wrap">
+      <h2 style="font: 700 1.45rem/1.3 var(--font-display); margin-bottom: 6px; letter-spacing: -.01em;">O que nos move</h2>
+      <p class="lead" style="color: var(--muted); margin-bottom: 26px; max-width: 46rem;">Três pilares que guiam cada linha de código, cada pipeline e cada decisão de produto.</p>
+      <div class="cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <b style="display: block; margin-bottom: 4px; color: var(--text);">Transparência</b>
+          <span style="font-size: .9rem; color: var(--muted);">Dados abertos, código aberto, metodologia documentada — nada escondido.</span>
+        </div>
+        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m16 0h4"/></svg>
+          <b style="display: block; margin-bottom: 4px; color: var(--text);">Precisão</b>
+          <span style="font-size: .9rem; color: var(--muted);">Pipelines auditáveis, manifestos SHA-256, sem "magic numbers".</span>
+        </div>
+        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke: var(--primary); fill: none; stroke-width: 1.5; margin-bottom: 8px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <b style="display: block; margin-bottom: 4px; color: var(--text);">Acessibilidade</b>
+          <span style="font-size: .9rem; color: var(--muted);">APIs simples, documentação clara, curva de entrada baixa.</span>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="instalacao">
     <div class="wrap">
       <h2>Instala&ccedil;&atilde;o</h2>
@@ -250,6 +282,35 @@ EOF
     </div>
   </section>
 
+  
+  <section id="estatisticas" style="padding: 52px 0; border-bottom: 1px solid var(--border);">
+    <div class="wrap">
+      <h2 style="font: 700 1.45rem/1.3 var(--font-display); margin-bottom: 6px; letter-spacing: -.01em;">Distribuição dos pacotes</h2>
+      <p class="lead" style="color: var(--muted); margin-bottom: 26px; max-width: 46rem;">Como os pacotes do ecossistema se distribuem entre PyPI e índice próprio.</p>
+      <div class="cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
+          <b style="display: block; margin-bottom: 16px; color: var(--text); font: 700 1.1rem/1.3 var(--font-display);">PyPI (âncoras)</b>
+          <div style="display: grid; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 40%; height: 8px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); border-radius: 4px;"></div>
+              <span style="font-size: .9rem; color: var(--text);">quantilica-cli + quantilica-core</span>
+            </div>
+            <small style="color: var(--muted);">Publicados no PyPI, instalação direta</small>
+          </div>
+        </div>
+        <div class="card" style="display: block; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; text-decoration: none; color: inherit;">
+          <b style="display: block; margin-bottom: 16px; color: var(--text); font: 700 1.1rem/1.3 var(--font-display);">Índice próprio (fetchers + analytics)</b>
+          <div style="display: grid; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 60%; height: 8px; background: linear-gradient(90deg, var(--cyan), var(--primary)); border-radius: 4px;"></div>
+              <span style="font-size: .9rem; color: var(--text);">9 fetchers + analytics</span>
+            </div>
+            <small style="color: var(--muted);">Distribuídos via GitHub Releases + índice PEP 503</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="pacotes">
     <div class="wrap">
       <h2>Pacotes</h2>
