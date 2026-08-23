@@ -1,2 +1,7 @@
-public/
-.hugo_build.lock
+# Sessões de agentes / lixo transitório
+.agents/
+
+# OS / editores
+.DS_Store
+Thumbs.db
+*.swp
