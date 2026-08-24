@@ -177,6 +177,47 @@
     .term-body { padding: 20px 24px; font: .88rem/1.9 var(--font-mono); color: #E2E8F0; overflow-x: auto; }
     .term-body .pr { color: var(--cyan); user-select: none; }
     .term-body .ok { color: var(--green); }
+    /* Terminal vivo */
+    .term:focus-within { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: var(--radius); }
+    .term-live { display: flex; gap: 8px; align-items: center; }
+    .term-live input {
+      flex: 1; min-width: 60px; background: none; border: 0; outline: 0;
+      color: #E2E8F0; font: inherit; caret-color: var(--cyan);
+    }
+    /* Gata dorminhoca */
+    .hero-img { position: relative; }
+    .hero-img img { transition: filter .9s ease, transform .9s ease; }
+    body.sleeping .hero-img img { filter: saturate(.35) brightness(.95); transform: rotate(2deg); }
+    .zzz { position: absolute; top: 14%; right: 16%; pointer-events: none; user-select: none; }
+    .zzz span { display: inline-block; font: italic 700 1.3rem/1 var(--font-ui); color: var(--primary-dark); opacity: 0; }
+    .zzz span:nth-child(2) { font-size: 1.65rem; margin-left: -5px; }
+    .zzz span:nth-child(3) { font-size: 2rem; margin-left: -5px; }
+    body.sleeping .zzz span { animation: zz-float 3.4s ease-in-out infinite; }
+    body.sleeping .zzz span:nth-child(2) { animation-delay: 1s; }
+    body.sleeping .zzz span:nth-child(3) { animation-delay: 2s; }
+    @keyframes zz-float {
+      0% { opacity: 0; transform: translateY(10px) rotate(6deg); }
+      30% { opacity: .85; }
+      100% { opacity: 0; transform: translateY(-30px) rotate(-4deg); }
+    }
+    /* Seleção na cor de destaque da marca */
+    ::selection { background: var(--cyan); color: #04241f; }
+    /* Saudação por horário */
+    .hero-greet {
+      margin-top: 12px; font-style: italic; font-size: .92rem; color: var(--muted);
+      text-decoration: underline dotted var(--cyan);
+      text-decoration-thickness: 1px; text-underline-offset: 5px;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .hero-greet.show { opacity: 1; transform: none; }
+    /* Chapéu de festa — 8 de agosto, Dia do Gato */
+    .cat-wrap { position: relative; display: inline-block; }
+    .party-hat {
+      display: none; position: absolute; left: 33%; top: -5%; width: 21%;
+      transform: rotate(-14deg); pointer-events: none;
+    }
+    body.cat-day .party-hat { display: block; }
 
     /* ---------- Como funciona ---------- */
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 40px; }
@@ -324,7 +365,19 @@
     <div class="wrap">
       <div class="hero-grid">
         <div class="hero-img">
-          <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua" style="max-width: 400px;">
+          <span class="cat-wrap">
+            <img src="/assets/quantilica-logo-icon.png" alt="Mascote da Quantilica — a gata tabby diante da lua" style="max-width: 400px;">
+            <svg class="party-hat" viewBox="0 0 100 120" aria-hidden="true">
+              <defs><clipPath id="cone"><polygon points="50,10 80,100 20,100"/></clipPath></defs>
+              <polygon points="50,10 80,100 20,100" fill="#ED8936"/>
+              <g clip-path="url(#cone)">
+                <polygon points="0,40 100,20 100,34 0,54" fill="#10B3F2"/>
+                <polygon points="0,68 100,48 100,62 0,82" fill="#14B8A6"/>
+              </g>
+              <circle cx="50" cy="12" r="9" fill="#EC4899"/>
+            </svg>
+            <span class="zzz" aria-hidden="true"><span>z</span><span>z</span><span>z</span></span>
+          </span>
         </div>
         <div class="hero-text">
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
@@ -350,6 +403,7 @@
 <span class="ok">&#10003; Fonte 'bcb-sgs' instalada com sucesso!</span><br>
 <span class="pr">$</span> quantilica bcb-sgs series sync 433<br>
 <span class="ok">&#10003; s&eacute;rie sincronizada &middot; manifest SHA-256 registrado</span>
+          <div class="term-live"><span class="pr">$</span><input id="term-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal interativo de demonstra&ccedil;&atilde;o — digite help"></div>
         </div>
       </div>
     </div>
@@ -599,6 +653,94 @@ print(df.group_by("uf").len())</span></pre>
       })
       .catch(() => {});
   })();
+
+  // Gata dorminhoca — 30s sem interação
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let t;
+    const wake = () => {
+      document.body.classList.remove('sleeping');
+      clearTimeout(t);
+      t = setTimeout(() => document.body.classList.add('sleeping'), 30000);
+    };
+    ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(e =>
+      addEventListener(e, wake, { passive: true }));
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
+    wake();
+  })();
+
+  // Terminal vivo
+  (() => {
+    const body = document.querySelector('.term-body');
+    const inp = document.getElementById('term-in');
+    if (!body || !inp) return;
+    const live = inp.closest('.term-live');
+    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const addLine = html => {
+      const d = document.createElement('div');
+      d.dataset.live = '1';
+      d.innerHTML = html;
+      body.insertBefore(d, live);
+      const all = body.querySelectorAll('[data-live]');
+      if (all.length > 24) all[0].remove();
+    };
+    const cmds = {
+      help: () => addLine('comandos: help \u00b7 pet-the-cat \u00b7 whoami \u00b7 sudo &lt;algo&gt; \u00b7 clear \u00b7 exit'),
+      ajuda: () => cmds.help(),
+      'pet-the-cat': () => addLine('<span class="ok">\u2713 ronronar emitido \u00b7 manifest afetivo registrado</span>'),
+      gato: () => cmds['pet-the-cat'](),
+      pet: () => cmds['pet-the-cat'](),
+      whoami: () => addLine('analista-de-dados \u00b7 proveni\u00eancia confirmada'),
+      clear: () => body.querySelectorAll('[data-live]').forEach(n => n.remove()),
+      limpar: () => cmds.clear(),
+      exit: () => inp.blur(),
+      sair: () => inp.blur()
+    };
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { inp.blur(); return; }
+      if (e.key !== 'Enter') return;
+      const raw = inp.value.trim();
+      inp.value = '';
+      addLine('<span class="pr">$</span> ' + esc(raw));
+      if (!raw) return;
+      const k = raw.replace(/^quantilica\s+/, '').toLowerCase();
+      if (cmds[k]) return cmds[k]();
+      if (/^(sudo)\b/.test(k)) return addLine('permiss\u00e3o negada: gatas n\u00e3o se subordinam a sudo');
+      addLine('comando n\u00e3o encontrado: ' + esc(k) + " \u00b7 tente 'help'");
+    });
+    body.addEventListener('click', e => {
+      if (e.detail > 1) return;                 // duplo clique: seleção de palavra em andamento
+      const sel = getSelection();
+      if (sel && !sel.isCollapsed) return;      // texto selecionado: não roubar o foco
+      inp.focus();
+    });
+  })();
+
+  // Sauda\u00e7\u00e3o por hor\u00e1rio
+  (() => {
+    const tag = document.querySelector('.tagline');
+    if (!tag) return;
+    const h = new Date().getHours();
+    const msg = h < 5 ? 'boa madrugada, analista'
+      : h < 12 ? 'bom dia, analista'
+      : h < 18 ? 'boa tarde, analista'
+      : 'boa noite, analista';
+    const p = document.createElement('p');
+    p.className = 'hero-greet';
+    p.textContent = msg;
+    tag.after(p);
+    requestAnimationFrame(() => requestAnimationFrame(() => p.classList.add('show')));
+  })();
+
+  // 8 de agosto — Dia do Gato (teste: ?gato na URL)
+  (() => {
+    const d = new Date();
+    if ((d.getMonth() === 7 && d.getDate() === 8) ||
+        new URLSearchParams(location.search).has('gato')) {
+      document.body.classList.add('cat-day');
+    }
+  })();
+
 </script>
 </body>
 
