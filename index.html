@@ -243,7 +243,7 @@
     .fonte { display: block; padding: 13px 16px; border-radius: var(--radius); color: inherit; transition: background .2s ease; }
     .fonte:hover { background: var(--surface-alt); text-decoration: none; }
     .fonte b { display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 600 .95rem/1.3 var(--font-ui); color: var(--text); }
-    .fonte b code { font: 600 .80rem/1 var(--font-mono); color: var(--primary-dark); }
+    .fonte b code { font: 600 .80rem/1 var(--font-mono); color: var(--primary-dark); background: var(--surface-alt); border-radius: 6px; padding: 0 4px; }
     .fonte b small { font: italic 400 .74rem/1 var(--font-ui); color: var(--muted); }
     .fonte span { display: block; margin-top: 3px; color: var(--muted); font-size: .95rem; }
     .app-id { display: inline-flex; align-items: center; gap: 9px; }
@@ -323,14 +323,13 @@
     th { color: var(--muted); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; background: var(--surface-alt); }
     tr:last-child td { border-bottom: none; }
     code {
-      display: inline-block;
       background: var(--surface-alt);
-      border-radius: 6px;
-      padding: 0 4px;
-      font-size: .88em;
-      line-height: 1;
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: .875em;
       font-family: var(--font-mono);
       white-space: nowrap;
+      color: inherit;
     }
     .tbl-wrap table, .tbl-wrap th, .tbl-wrap td {
       border: 1px solid var(--border);
@@ -522,7 +521,8 @@ print(df.group_by("uf").len())</span></pre>
         <div class="ad-com">
           <h3>Com Quantilica</h3>
           <ul>
-            <li><code>quantilica install &lt;fonte&gt;</code> e um comando de sync</li>
+            <li>Fonte instalada e sincronizada com um único comando:</li>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>quantilica install &lt;fonte&gt;</code>
             <li>Saída tipada em Parquet, pronto para Polars</li>
             <li>Manifest SHA-256 registrando cada download</li>
             <li>Hist&oacute;rico versionado no seu disco &mdash; reprodut&iacute;vel</li>
