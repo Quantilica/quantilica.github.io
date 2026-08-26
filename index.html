@@ -137,12 +137,21 @@
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
       margin-top: 26px; padding: 11px 26px;
-      background: var(--primary-dark); color: #fff;
+      background: var(--ocean); color: #fff;
       font-weight: 600; font-size: .95rem;
       border-radius: 999px; text-decoration: none;
       transition: background .2s ease;
     }
-    .btn-primary:hover { background: #7F3F14; color: #fff; text-decoration: none; }
+    .btn-primary:hover { background: var(--primary); color: #fff; text-decoration: none; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 26px; padding: 11px 26px; margin-left: 10px;
+      background: var(--primary); color: #fff;
+      font-weight: 600; font-size: .95rem;
+      border-radius: 999px; text-decoration: none;
+      transition: background .2s ease;
+    }
+    .btn-secondary:hover { background: var(--primary-dark); color: #fff; text-decoration: none; }
     .hero-meta { margin-top: 20px; color: var(--muted); font-size: .90rem; }
     .hero-meta span { color: var(--border); }
     .scroll-cue {
@@ -403,7 +412,8 @@
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
           <p class="hero-sub">Dados públicos brasileiros, prontos para análise &mdash; colete, normalize e audite com uma linha de comando.</p>
           <p class="tagline">Do <span class="sr-only">IBGE, Banco Central, DATASUS, INMET e outras fontes públicas</span><span class="rotate-word" aria-hidden="true" data-words='["IBGE","Banco Central","DATASUS","INMET","Comex Stat","ANP","ANAC","Tesouro Nacional","Receita Federal"]'>IBGE</span> ao seu DataFrame Polars, com um único comando.</p>
-          <a class="btn-primary" href="https://docs.quantilica.com/">Documenta&ccedil;&atilde;o <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn-primary" href="https://docs.quantilica.com/">Documentação <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn-secondary" href="https://quantilica.com/">Plataforma <span aria-hidden="true">&rarr;</span></a>
           <p class="hero-meta">Python &ge; 3.12 <span>&middot;</span> MIT <span>&middot;</span> Proveni&ecirc;ncia SHA-256 <span>&middot;</span> Polars / PyArrow</p>
         </div>
       </div>
