@@ -410,7 +410,7 @@
         </div>
         <div class="hero-text">
           <h1><span class="grad-text">&#8251; Quantilica</span></h1>
-          <p class="hero-sub">Dados públicos brasileiros, prontos para análise &mdash; colete, normalize e audite com uma linha de comando.</p>
+          <p class="hero-sub">Dados públicos brasileiros, preservados e prontos para análise &mdash; colete, arquive, normalize e audite com uma linha de comando.</p>
           <p class="tagline">Do <span class="sr-only">IBGE, Banco Central, DATASUS, INMET e outras fontes públicas</span><span class="rotate-word" aria-hidden="true" data-words='["IBGE","Banco Central","DATASUS","INMET","Comex Stat","ANP","ANAC","Tesouro Nacional","Receita Federal"]'>IBGE</span> ao seu DataFrame Polars, com um único comando.</p>
           <a class="btn-primary" href="https://docs.quantilica.com/">Documentação <span aria-hidden="true">&rarr;</span></a>
           <a class="btn-secondary" href="https://quantilica.com/">Plataforma <span aria-hidden="true">&rarr;</span></a>
@@ -535,7 +535,7 @@ print(df.group_by("uf").len())</span></pre>
             &nbsp;&nbsp;&nbsp;&nbsp;<code>quantilica install &lt;fonte&gt;</code>
             <li>Saída tipada em Parquet, pronto para Polars</li>
             <li>Manifest SHA-256 registrando cada download</li>
-            <li>Hist&oacute;rico versionado no seu disco &mdash; reprodut&iacute;vel</li>
+            <li>Preserva&ccedil;&atilde;o hist&oacute;rica: nada se apaga &mdash; revis&otilde;es oficiais coexistem com <code>@timestamp</code></li>
             <li>Proveni&ecirc;ncia audit&aacute;vel em arquivo, n&atilde;o de mem&oacute;ria</li>
           </ul>
         </div>
@@ -580,7 +580,7 @@ print(df.group_by("uf").len())</span></pre>
         <h3>Quanto custa?</h3>
         <p>Nada. C&oacute;digo MIT, sem plano pago e sem telemetria.</p>
         <h3>Onde ficam os dados baixados?</h3>
-        <p>No seu disco, sob seu controle &mdash; em Parquet/CSV acompanhados de manifestos <code>.manifest.json</code> com o hash SHA-256 de cada arquivo.</p>
+        <p>No seu disco, sob seu controle &mdash; os arquivos brutos originais s&atilde;o preservados com carimbo <code>@timestamp</code> da fonte (nada se apaga quando o governo retifica um arquivo) e acompanhados de manifestos <code>.manifest.json</code> com o hash SHA-256 de cada vers&atilde;o.</p>
         <h3>Como citar em uma publica&ccedil;&atilde;o?</h3>
         <p>Cite o pacote, a vers&atilde;o e o reposit&oacute;rio. O hash registrado no manifest permite reproduzir exatamente o mesmo conjunto de dados usado.</p>
       </div>
