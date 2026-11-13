@@ -16,7 +16,7 @@ ORG = "Quantilica"
 REPOS = [
     "quantilica-core",
     "quantilica-cli",
-    "sidra-fetcher",
+    "ibge-sidra-fetcher",
     "bcb-sgs-fetcher",
     "comex-fetcher",
     "datasus-fetcher",
