@@ -1,0 +1,59 @@
+# Texto de destaque dos cartões de fontes da landing (scripts/gerar_cartoes.py).
+# A ordem das tabelas é a ordem dos cartões. Quem é fonte de vitrine, o link da
+# documentação e o código da CLI vêm do registro público; aqui ficam só os
+# textos curados:
+#   titulo        nome curto no cartão (padrão: `nome` do registro)
+#   texto         linha de apoio (padrão: `orgao` do registro)
+#   em_breve_cli  mostra "em breve na CLI"
+# Fonte de vitrine que não está aqui entra no fim, com os textos do registro.
+
+[bcb-sgs]
+titulo = "Banco Central"
+texto = "Séries temporais do SGS"
+
+[ibge-sidra]
+titulo = "IBGE SIDRA"
+texto = "Macroeconomia e preços"
+em_breve_cli = true
+
+[datasus]
+titulo = "DATASUS"
+texto = "Microdados de saúde pública"
+
+[inmet]
+titulo = "INMET"
+texto = "Clima por estação (BDMEP)"
+
+[comex]
+titulo = "Comex Stat"
+texto = "Comércio exterior"
+
+[pdet]
+titulo = "MTE/PDET"
+texto = "Trabalho — CAGED e RAIS"
+
+[rtn]
+titulo = "Tesouro Nacional"
+texto = "Fiscal — Registros RTN"
+
+[tesouro-direto]
+titulo = "Tesouro Direto"
+texto = "Títulos públicos"
+
+[anp]
+titulo = "ANP"
+texto = "Petróleo, gás e biocombustíveis"
+
+[anac]
+titulo = "ANAC"
+texto = "Aviação civil"
+
+[inep]
+titulo = "INEP"
+texto = "Educação — ENEM e Censo Escolar"
+em_breve_cli = true
+
+[rfb-cnpj]
+titulo = "Receita Federal"
+texto = "CNPJ de empresas"
+em_breve_cli = true

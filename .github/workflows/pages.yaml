@@ -25,6 +25,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Sem o registro, o site compila com os cartões do último commit.
+      - name: Gerar cartões de fontes a partir do registro
+        run: python3 scripts/gerar_cartoes.py || echo "::warning::registro indisponível; cartões do último commit"
+
       - name: Fetch latest releases
         env:
           GITHUB_TOKEN: ${{ github.token }}

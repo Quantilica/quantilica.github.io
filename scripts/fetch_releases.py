@@ -1,5 +1,8 @@
 """Gera assets/releases.json com o release mais recente de cada pacote vitrine.
 
+Os pacotes são o core e o cli (fixos) mais os fetchers com `vitrine` no
+registro público (scripts/registro.py).
+
 Uso: python3 scripts/fetch_releases.py [saida]
 Executado em build-time no GitHub Actions (com GITHUB_TOKEN) e tolerante a
 falhas individuais: se um repo não responder, ele é apenas omitido — o site
@@ -12,15 +15,22 @@ import sys
 import urllib.error
 import urllib.request
 
+from registro import RegistroError, carregar, nome_do_repo
+
 ORG = "Quantilica"
-REPOS = [
-    "quantilica-core",
-    "quantilica-cli",
-    "ibge-sidra-fetcher",
-    "bcb-sgs-fetcher",
-    "comex-fetcher",
-    "datasus-fetcher",
-]
+# Pacotes que não são fetchers e, por isso, não estão no registro.
+REPOS_FIXOS = ["quantilica-core", "quantilica-cli"]
+
+
+def repos_vitrine() -> list[str]:
+    """Repositórios fixos mais os fetchers de vitrine do registro."""
+    try:
+        fetchers = carregar()
+    except RegistroError as exc:
+        # O site sempre compila: sem o registro, o feed fica só com os fixos.
+        print(f"aviso: {exc}", file=sys.stderr)
+        return list(REPOS_FIXOS)
+    return REPOS_FIXOS + sorted(nome_do_repo(f) for f in fetchers if f.get("vitrine"))
 
 
 def _get(path: str) -> dict:
@@ -64,7 +74,7 @@ def latest_release(repo: str) -> dict | None:
 def main() -> int:
     out = sys.argv[1] if len(sys.argv) > 1 else "assets/releases.json"
     items = []
-    for repo in REPOS:
+    for repo in repos_vitrine():
         try:
             rel = latest_release(repo)
         except Exception as exc:  # noqa: BLE001 — tolerância deliberada
