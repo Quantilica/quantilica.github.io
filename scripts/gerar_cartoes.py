@@ -8,6 +8,9 @@ O bloco entre os marcadores
 lista os fetchers com `vitrine`: o link vai direto à página do coletor no site de
 documentação (`docs_pasta` e `distribution`) e o código da CLI vem de
 `entry_point`. Os textos curados ficam em scripts/destaques.toml, fora do bloco.
+As chaves do destaques.toml valem pelo id, por um apelido (`aliases`) ou por um id
+anterior (`historico`) do fetcher: um fetcher de vitrine renomeado não perde o
+destaque, e o arquivo pode ser atualizado depois, sem pressa.
 
 Uso:
     python3 scripts/gerar_cartoes.py            reescreve o bloco no index.html
@@ -59,8 +62,40 @@ def cartao(fetcher: dict, destaque: dict, recuo: str) -> str:
     )
 
 
+def resolve_destaques(fetchers: list[dict], destaques: dict) -> dict:
+    """Reescreve as chaves do destaques.toml para o id canônico do registro.
+
+    Cada chave vale pelo id, por um apelido (`aliases`) ou por um id anterior
+    (`historico`). A ordem do arquivo é mantida. Duas chaves do mesmo fetcher
+    (o id novo e o antigo) são erro: o arquivo diz duas vezes a mesma coisa.
+    Chave que o registro não conhece fica como está (o `gera` avisa).
+    """
+    nomes: dict[str, str] = {}
+    for f in fetchers:
+        for antigo in f.get("historico") or ():
+            if isinstance(antigo, dict) and antigo.get("id"):
+                nomes[antigo["id"]] = f["id"]
+        for apelido in f.get("aliases") or ():
+            nomes[apelido] = f["id"]
+    for f in fetchers:
+        nomes[f["id"]] = f["id"]  # o id vigente vence qualquer apelido
+    resolvido: dict = {}
+    origem: dict[str, str] = {}
+    for chave, valor in destaques.items():
+        canonico = nomes.get(chave, chave)
+        if canonico in resolvido:
+            raise SystemExit(
+                f"destaques.toml: `{origem[canonico]}` e `{chave}` são o mesmo "
+                f"fetcher (`{canonico}`); deixe uma só"
+            )
+        resolvido[canonico] = valor
+        origem[canonico] = chave
+    return resolvido
+
+
 def gera(fetchers: list[dict], destaques: dict, recuo: str) -> str:
     vitrine = {f["id"]: f for f in fetchers if f.get("vitrine")}
+    destaques = resolve_destaques(fetchers, destaques)
     ordem = [i for i in destaques if i in vitrine]
     ordem += sorted(set(vitrine) - set(ordem))
     for i in destaques:
